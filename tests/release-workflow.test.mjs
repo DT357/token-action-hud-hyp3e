@@ -110,6 +110,15 @@ test('GitHub workflow builds, attaches, and verifies both release assets', async
   assert.match(workflow, /release\.mjs publish-foundry/)
 })
 
+test('release source files use stable LF line endings on every runner', async () => {
+  const attributes = await readFile(
+    path.join(moduleRoot, '.gitattributes'),
+    'utf8'
+  )
+
+  assert.match(attributes, /^\* text=auto eol=lf$/m)
+})
+
 test('package scripts expose safe release planning and tag publication', async () => {
   const packageJson = JSON.parse(
     await readFile(path.join(moduleRoot, 'package.json'), 'utf8')
