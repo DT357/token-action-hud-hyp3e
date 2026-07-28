@@ -73,6 +73,13 @@ function buildArchive(outputPath) {
   })
 }
 
+test('release hashing does not depend on the Get-FileHash cmdlet', async () => {
+  const script = await readFile(buildScript, 'utf8')
+
+  assert.doesNotMatch(script, /\bGet-FileHash\b/)
+  assert.match(script, /Security\.Cryptography\.SHA256/)
+})
+
 test('release archives are deterministic and contain only runtime files', async () => {
   const temporaryDirectory = await mkdtemp(
     path.join(os.tmpdir(), 'token-action-hud-hyp3e-release-')

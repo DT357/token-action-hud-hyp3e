@@ -191,7 +191,18 @@ try {
 }
 
 $archiveInfo = Get-Item -LiteralPath $OutputPath
-$archiveHash = Get-FileHash -LiteralPath $OutputPath -Algorithm SHA256
+$archiveHashAlgorithm = [Security.Cryptography.SHA256]::Create()
+$archiveHashStream = $null
+try {
+  $archiveHashStream = [IO.File]::OpenRead($OutputPath)
+  $archiveHashBytes = $archiveHashAlgorithm.ComputeHash($archiveHashStream)
+  $archiveHash = [BitConverter]::ToString($archiveHashBytes).Replace('-', '')
+} finally {
+  if ($archiveHashStream) {
+    $archiveHashStream.Dispose()
+  }
+  $archiveHashAlgorithm.Dispose()
+}
 Write-Output "Release archive: $($archiveInfo.FullName)"
 Write-Output "Archive size: $($archiveInfo.Length) bytes"
-Write-Output "SHA-256: $($archiveHash.Hash)"
+Write-Output "SHA-256: $archiveHash"
