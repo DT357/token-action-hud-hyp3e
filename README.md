@@ -1,293 +1,161 @@
 # Token Action HUD Hyperborea 3e
 
-Token Action HUD Hyperborea 3e is a companion module that connects
-[Token Action HUD Core](https://github.com/Larkinabout/fvtt-token-action-hud-core)
-to the Hyperborea 3rd Edition game system.
+Token Action HUD Hyperborea 3e puts frequently used Hyperborea 3rd Edition
+actions into a movable HUD. Select a token to attack, make checks and saving
+throws, cast spells, use light sources, and activate charged items without
+opening the actor sheet.
 
-## Project status
-
-The Phase 5 release candidate provides the complete planned functional action set:
-
-- a Combat group with Weapons and Saving Throws;
-- weapon attacks for character and NPC actors through Hyperborea's `rollItem`
-  workflow;
-- all five current saving throws through Hyperborea's `rollSave` workflow;
-- character tasks, natural ability checks, and Charisma reaction rolls;
-- character and NPC features with assigned roll formulas;
-- dynamically generated spell-level groups;
-- character and NPC light-source actions;
-- NPC Morale checks and GM-only Loyalty checks for NPC-subtype actors;
-- light-source actions for item-token actors;
-- charged-item spells for character and NPC actors, with individual spell
-  actions, charge cost/current charge state, and Hyperborea charge consumption;
-- actor-specific layouts that keep unsupported groups quiet for merchants,
-  treasure actors, and other unsupported actor types;
-- current HP, AC, DR, casting ability, carried-weight, quantity, equipment, and
-  memorization state in the HUD;
-- item-sheet opening on an unmodified item or light-action right-click;
-- referenced-spell sheet opening on an unmodified charged-spell right-click;
-- localized action state, specialized tooltips, and Core debug logging for
-  dispatch and broken spell references;
-- safe handling for stale or malformed HUD actions.
-
-Automated tests, syntax validation, manifest validation, and deterministic release
-packaging are in place. The live Foundry 13/14 matrix in the
-[release checklist](https://github.com/DT357/token-action-hud-hyp3e/blob/main/RELEASE_CHECKLIST.md)
-remains the final release gate. The first public release is planned after that
-matrix passes.
+This is a companion for
+[Token Action HUD Core](https://github.com/Larkinabout/fvtt-token-action-hud-core).
+Token Action HUD Core provides the HUD, while this module adds support for the
+Hyperborea 3rd Edition game system.
 
 ## Requirements
 
-- Foundry Virtual Tabletop 13 or 14. The effective Foundry 13 minimum is 13.351
-  because that is the minimum supported by Token Action HUD Core 2.1.1.
-- Hyperborea 3rd Edition 3.8.0 or later within its supported Foundry range.
+- Foundry Virtual Tabletop 13.351 or later within version 13, or Foundry 14
+  (verified with 14.365).
+- Hyperborea 3rd Edition 3.8.0 or later.
 - Token Action HUD Core 2.1.x.
 
 ## Installation
 
-Token Action HUD Hyperborea 3e requires both Hyperborea 3rd Edition and Token
-Action HUD Core.
+1. Install **Hyperborea 3rd Edition** and **Token Action HUD Core** in Foundry.
+2. Open Foundry's **Add-on Modules** tab and select **Install Module**.
+3. Paste this address into the **Manifest URL** field:
 
-To install from a published release:
-
-1. Install Hyperborea 3rd Edition and Token Action HUD Core from Foundry's package
-   manager.
-2. In Foundry's **Add-on Modules** tab, choose **Install Module** and paste:
    `https://github.com/DT357/token-action-hud-hyp3e/releases/latest/download/module.json`
-3. Enable Token Action HUD Core and Token Action HUD Hyperborea 3e in a Hyperborea
-   world.
-4. Select a supported token. If the world contains a layout saved by an earlier
-   development version, reset the Token Action HUD layout once.
 
-For a manual test install, extract the release ZIP so that `module.json` is at
-`Data/modules/token-action-hud-hyp3e/module.json`, restart Foundry, and enable the
-two modules in a Hyperborea world.
+4. Select **Install**.
+5. Open a Hyperborea world and enable both **Token Action HUD Core** and
+   **Token Action HUD Hyperborea 3e**.
 
-## Compatibility
+## Using the HUD
 
-The release manifest declares Foundry 13 as its minimum and Foundry 14.365 as its
-verified version. Token Action HUD Core 2.1.1 raises the effective Foundry 13 floor
-to 13.351. The supported dependency baseline is:
+Select a supported token on the canvas. The HUD will show actions appropriate
+for that actor.
 
-| Component | Supported baseline |
-| --- | --- |
-| Foundry Virtual Tabletop | 13.351 or later in generation 13; 14.365 |
-| Hyperborea 3rd Edition | 3.8.0 or later within its Foundry-supported range |
-| Token Action HUD Core | 2.1.x |
+- Left-click an action to use it.
+- Right-click an item-based action to open the relevant item or spell sheet.
+- Move, lock, resize, or customize the HUD using Token Action HUD Core's
+  controls.
+- Assign conditions and statuses through Foundry's token controls.
 
-Compatibility claims are finalized only after the live matrix in the
-[release checklist](https://github.com/DT357/token-action-hud-hyp3e/blob/main/RELEASE_CHECKLIST.md)
-passes.
+If you update the module and do not see the latest groups, use Token Action HUD
+Core's **Reset HUD** option once. Core normally preserves each user's customized
+layout between updates.
 
-## Development
+## Available actions
 
-The module uses unbundled JavaScript modules and has no runtime npm dependencies.
-From this directory:
+### Combat
 
-```shell
-npm test
-npm run check
-npm run release:check
-npm run release:plan
-npm run release:dry-run
-```
+- Melee and missile weapons.
+- Death, Device, Transformation, Avoidance, and Sorcery saving throws.
+- Current hit points, armour class, and damage reduction are shown in the group
+  summary.
 
-`npm test` runs the Node test suite. `npm run check` also validates JavaScript
-syntax. The architecture test rejects module-owned use of legacy Foundry
-`Application`, `FormApplication`, and `Dialog` APIs as well as jQuery. Any future
-UI owned by this module must use Foundry's ApplicationV2 framework available in
-Foundry 13 and 14.
+Weapon attacks use Hyperborea's normal attack process, including targeting,
+range, ammunition, and equipment rules.
 
-`npm run release:check` runs the full automated gate and creates
-`dist/token-action-hud-hyp3e.zip`. The packaging test builds the archive twice and
-requires byte-identical output. The archive uses an explicit runtime allowlist, so
-tests, development tools, reference projects, and maintainer documents are not
-shipped accidentally.
+### Abilities
 
-## Release workflow
+Characters can access:
 
-The release process has a local gate and a tag-triggered GitHub Actions workflow:
+- Attribute checks and tests.
+- Tasks.
+- Charisma reaction rolls.
+- Features that have a roll assigned to them.
 
-1. Update `module.json` for the new `YYYY.MM.DD` version, including its matching
-   `releases/download/vYYYY.MM.DD/token-action-hud-hyp3e.zip` URL.
-2. Complete the live Foundry matrix and sign-off in `RELEASE_CHECKLIST.md`.
-3. Commit the release candidate to `main` and push it to
-   `DT357/token-action-hud-hyp3e`.
-4. Run `npm run release:dry-run`. This repeats the automated gate and, once this
-   directory is a Git checkout, verifies a clean `main`, the GitHub remote, the
-   remote commit, and tag availability without changing Git.
-5. Run `npm run release:start`. It repeats those checks, creates the annotated
-   `vYYYY.MM.DD` tag, and pushes only that tag.
+NPCs and monsters can access their rollable features and Morale. Loyalty is
+available only to the GM and only for actors whose NPC Type is **NPC**.
 
-The tag starts `.github/workflows/release.yml`. GitHub rebuilds the deterministic
-archive, creates a release with generated notes, attaches `module.json` and
-`dist/token-action-hud-hyp3e.zip`, and downloads both public assets to verify that
-they are byte-identical to the validated local files. If the repository secret
-`FOUNDRY_PACKAGE_RELEASE_TOKEN` exists, the workflow then registers the immutable
-release manifest URL with Foundry. Without that secret, Foundry registration is
-reported as skipped while the GitHub release still completes.
+Passive features and features without a roll are intentionally omitted.
+Statuses are also omitted because they can be assigned through the token's
+right-click controls.
 
-One-time repository setup is still required: make this module directory the root
-of the GitHub repository, permit GitHub Actions to request `contents: write`, and
-submit the initial package to Foundry for approval. Foundry supplies the package
-release token only after the package page exists; store that token as the
-`FOUNDRY_PACKAGE_RELEASE_TOKEN` GitHub Actions secret. Tokens must never be
-committed to the repository.
+### Spells
 
-Token Action HUD Core owns the HUD application. Hyperborea owns its actor and item
-sheets, roll dialogs, chat cards, and rules workflows. This module delegates to
-those public interfaces instead of duplicating their behavior.
+Spells are organized by spell level, and empty levels are hidden. Casting uses
+Hyperborea's normal spell rules, including memorization requirements when those
+rules are enabled.
+
+The Spells group appears only when the selected actor supports spellcasting.
+
+### Inventory
+
+The Inventory group contains:
+
+- Light sources.
+- Spells provided by identified charged items.
+
+Light sources use Hyperborea's normal fuel, lighting, and effect settings.
+Charged-item spells show their charge cost and remaining charges, and using one
+consumes charges normally. Players see `??` when an item's charges are hidden;
+the GM can still see the actual value.
+
+Ordinary gear is intentionally omitted because it is rarely needed for quick
+combat access. Items marked **In Storage** are not shown.
+
+## Supported actors
+
+- **Characters:** Combat, Abilities, Spells, light sources, and charged-item
+  spells as appropriate.
+- **NPCs and monsters:** Combat, rollable features, NPC checks, Spells, light
+  sources, and charged-item spells as appropriate.
+- **Item tokens:** Light sources only.
+- **Merchants and treasure actors:** No Hyperborea action groups are added.
+
+Linked and unlinked tokens are supported. Actions always use the actor belonging
+to the currently selected token.
 
 ## Troubleshooting
 
-- **The HUD is absent:** confirm the world uses the `hyp3e` system and that both
-  Token Action HUD Core and this module are enabled. Check that the dependency
-  versions meet the compatibility table above.
-- **Groups or actions are missing after an update:** reset the Token Action HUD
-  layout. Core intentionally preserves user-customized layouts, which may not gain
-  new default groups automatically.
-- **A monster token causes a `GroupHandler.removeGroup` error:** install the
-  current release candidate, restart Foundry, and reset the saved HUD layout. The
-  current module supplies Core's active HUD model when pruning actor-specific
-  groups.
-- **An action affects the wrong actor:** select the intended token before using the
-  HUD. Unlinked tokens use their synthetic token actor rather than the base world
-  actor.
-- **An item spell is absent:** confirm the item is identified, not In Storage, has
-  a valid spell UUID, and is on a character or NPC. Item-token actors intentionally
-  do not expose charged-item spells.
-- **Loyalty is absent:** Loyalty is GM-only and appears only for NPC actors whose
-  NPC Type is NPC. Monster-subtype actors still receive Morale but not Loyalty.
-- **A problem remains:** enable Token Action HUD Core debug logging, reproduce the
-  issue, and report the Foundry, Hyperborea, Core, and companion-module versions
-  with the browser-console stack trace.
+### The HUD does not appear
 
-## Phase 1 Foundry smoke test
+- Confirm the world is using the Hyperborea 3rd Edition system.
+- Confirm both Token Action HUD Core and this module are enabled.
+- Select a character, NPC, monster, or item token.
+- Check that the installed versions meet the requirements above.
 
-If the world saved or customized the Phase 0 placeholder layout, reset the Token
-Action HUD layout before testing so Core loads the new Weapons and Saving Throws
-subgroups.
+### A group or action is missing
 
-Test both a linked character token and an unlinked NPC token:
+- Reset the HUD through Token Action HUD Core after updating.
+- Confirm the actor supports that type of action.
+- Rollable features require an assigned roll.
+- Empty spell levels are hidden.
+- Unidentified items and items marked **In Storage** do not provide item-spell
+  actions.
+- Loyalty is visible only to the GM for NPC-type actors.
 
-1. Select the token and confirm Combat contains Weapons and Saving Throws.
-2. Click a melee weapon and confirm the normal Hyperborea attack dialog and chat
-   workflow.
-3. Click a missile weapon with a target and confirm range and ammunition behavior.
-4. Roll Death, Device, Transformation, Avoidance, and Sorcery saves and compare
-   their targets with the actor sheet.
-5. Right-click a weapon without modifiers and confirm its embedded item sheet
-   opens without an attack roll.
-6. For the unlinked NPC, confirm the selected token actor—not its base world
-   actor—is used.
-7. Repeat a character weapon attack with Hyperborea's weapon-equipment enforcement
-   enabled and disabled.
+### An action uses the wrong actor
 
-## Phase 2 Foundry smoke test
+Select the intended token before using the HUD. For an unlinked token, the HUD
+uses that token's own actor data.
 
-Reset the Token Action HUD layout before testing so Core loads the new Abilities,
-Spells, and Inventory groups.
+### Reporting a problem
 
-Test a linked character token:
+Open an issue on the
+[GitHub issue tracker](https://github.com/DT357/token-action-hud-hyp3e/issues).
+Include:
 
-1. Confirm the HUD contains Combat, Abilities, Spells, and Inventory.
-2. Confirm Combat shows current/max HP, AC, and DR.
-3. Roll all five Tasks and compare their current targets with the actor sheet.
-4. Roll the Strength and Dexterity Tests/Feats, Constitution Trauma
-   Survival/Test/Feat, and both Learn Spell checks.
-5. Enable Hyperborea's optional Intelligence and Wisdom concentration checks,
-   confirm both appear with the configured formula, then disable the option and
-   confirm they disappear.
-6. Roll Charisma Reaction and confirm the current reaction modifier and normal
-   Hyperborea reaction-table workflow are used.
-7. Use a feature with a non-empty roll formula and confirm Hyperborea handles the
-   check, dialog, effects, and chat. Confirm passive and effect-only features with
-   no formula are absent.
-8. Confirm spells appear only under populated Level 1 through Level 6 subgroups.
-   Test a memorized spell and a zero-memorization spell with Hyperborea's
-   memorization enforcement enabled and disabled.
-9. Confirm Inventory contains Light Sources and, when applicable, derived Item
-   Spells, but no Gear subgroup.
-10. Right-click representative feature, spell, and light actions without modifiers
-    and confirm the correct item sheet opens without using the item.
-11. Toggle a light source with Hyperborea's fuel requirement enabled and disabled.
-    Confirm fuel, token light, and Active Effects follow the actor-sheet workflow.
-12. Change HP, AC, DR, casting ability, weapon quantity/equipment, spell
-    memorization, and carried weight and confirm Core refreshes displayed state.
-13. Confirm Abilities has no Statuses subgroup; assign statuses through the
-    token's right-click controls instead.
-14. Select an NPC token and confirm the Phase 1 Combat actions remain available.
-    The Phase 3 test below covers its additional actor-specific groups.
+- Your Foundry version.
+- Your Hyperborea 3rd Edition version.
+- Your Token Action HUD Core version.
+- This module's version.
+- The actor type and action involved.
+- A screenshot or any error message shown in the browser console.
 
-## Phase 3 Foundry smoke test
+## Updates and releases
 
-Reset the Token Action HUD layout before testing so Core loads the new NPC Checks
-subgroup.
+Release notes and downloads are available on the
+[GitHub Releases page](https://github.com/DT357/token-action-hud-hyp3e/releases).
+Foundry uses the manifest URL above to check for new versions.
 
-Test both a linked NPC token and an unlinked NPC token, including at least one
-actor whose NPC Type is Monster:
+## License and acknowledgements
 
-1. Confirm the HUD contains Combat and Inventory, Abilities contains Features and
-   NPC Checks, and character-only Attribute Checks and Tasks are absent.
-2. Confirm Weapons and Saving Throws still use the normal Hyperborea workflows.
-3. Use representative rollable feature, spell, and light-source actions and
-   confirm the selected token actor is used, including for the unlinked token.
-4. Roll Morale and confirm a 2d6 check uses the actor's current Morale target.
-5. As a GM, confirm Loyalty appears only for an actor whose NPC Type is NPC and
-   uses its current value. Confirm it is absent for monster-type actors and for a
-   player user.
-6. Confirm there is no Hit Dice action.
-7. Confirm populated spell-level groups appear for an NPC with a casting ability,
-   and that the entire Spells group is absent for an NPC without one.
-8. Confirm weapon quantity/equipment and spell memorization metadata reflect the
-   current NPC data, and that items marked In Storage are excluded.
-9. Right-click representative feature, spell, and light actions without
-   modifiers and confirm the correct item sheet opens without using the item.
+Token Action HUD Hyperborea 3e is available under the [MIT License](LICENSE).
 
-Test an item-token actor:
-
-1. Confirm only Inventory > Light Sources system actions are present.
-2. Confirm light sources work against the selected item-token actor.
-3. Right-click a light source without modifiers and confirm its sheet opens
-   without using it.
-4. Confirm weapon attacks and the Combat, Abilities, and Spells groups are absent.
-
-Finally, select merchant and treasure actors and confirm the module contributes no
-system action groups for those unsupported actor types.
-
-## Phase 4 Foundry smoke test
-
-Test both a linked character token and an unlinked NPC token:
-
-1. Give the actor an identified charged item with one or more spell references.
-   Confirm Inventory gains one Item Spells action per valid reference.
-2. Confirm each item-spell action displays its charge cost and current/max item
-   charges. As a player, confirm an item configured to hide charges displays
-   `??`; as a GM, confirm its actual charges remain visible.
-3. Cast representative item spells and confirm Hyperborea uses the item's casting
-   ability, runs its normal spell workflow, enforces available charges, and
-   deducts the configured charge cost.
-4. Right-click an item-spell action without modifiers and confirm the referenced
-   spell sheet opens without casting or consuming charges.
-5. Confirm character items marked unidentified or In Storage do not expose their
-   charged spells.
-6. Add a broken spell UUID beside a valid reference and confirm the valid action
-   remains usable. With Core debug logging enabled, confirm the skipped UUID is
-   reported without a user-facing failure.
-7. Confirm tooltips provide the full item-spell source when Core tooltips are
-   enabled.
-
-Finally, confirm item-token actors retain their Phase 3 light-only scope and do
-not gain Item Spells. Hyperborea's item-token sheet does not expose a
-charged-spell workflow, so the module does not invent one.
-
-## License and third-party works
-
-Original source code in this package is available under the [MIT License](LICENSE).
 This package is designed for Foundry Virtual Tabletop and is distributed subject
 to Foundry's
 [Limited License for Package Development](https://foundryvtt.com/article/license/).
-
-Token Action HUD Core and Hyperborea 3rd Edition are required/reference projects;
-their code, content, assets, names, and trademarks are not relicensed by this
-package and remain the property of their respective owners.
+Token Action HUD Core and Hyperborea 3rd Edition remain the property of their
+respective authors.
