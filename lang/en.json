@@ -1,0 +1,51 @@
+{
+  "tokenActionHudHyp3e": {
+    "groups": {
+      "abilities": "Abilities",
+      "attributeChecks": "Attribute Checks",
+      "combat": "Combat",
+      "features": "Features",
+      "inventory": "Inventory",
+      "itemSpells": "Item Spells",
+      "level": "Level",
+      "lightSources": "Light Sources",
+      "npcChecks": "NPC Checks",
+      "saves": "Saving Throws",
+      "spells": "Spells",
+      "tasks": "Tasks",
+      "weapons": "Weapons"
+    },
+    "errors": {
+      "workflowFailed": "A Hyperborea action failed"
+    },
+    "info": {
+      "armorClass": "Armor Class",
+      "castingAbility": "Casting Ability",
+      "chargeCost": "Charge Cost",
+      "charges": "Charges",
+      "checkFormula": "Formula",
+      "checkTarget": "Target",
+      "damageReduction": "Damage Reduction",
+      "equipped": "Equipped",
+      "hitPoints": "Hit Points",
+      "memorized": "Memorized",
+      "quantity": "Quantity",
+      "saveTarget": "Save Target",
+      "spellLevel": "Spell Level",
+      "unequipped": "Unequipped",
+      "weightCarried": "Weight Carried"
+    },
+    "notifications": {
+      "registrationFailed": "Token Action HUD Hyperborea 3e could not register with Token Action HUD Core."
+    },
+    "rollHandlers": {
+      "core": "Core"
+    },
+    "rolls": {
+      "task": "task"
+    },
+    "tooltips": {
+      "castItemSpell": "Cast {spell} from {item}"
+    }
+  }
+}

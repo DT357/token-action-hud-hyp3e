@@ -1,0 +1,50 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build and publish release
+    runs-on: windows-latest
+    env:
+      FOUNDRY_PACKAGE_RELEASE_TOKEN: ${{ secrets.FOUNDRY_PACKAGE_RELEASE_TOKEN }}
+
+    steps:
+      - name: Check out tagged source
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 20
+          package-manager-cache: false
+
+      - name: Validate tag and manifest version
+        run: node tools/release.mjs verify-tag "${{ github.ref_name }}"
+
+      - name: Run release gate and build archive
+        run: npm run release:check
+
+      - name: Create GitHub release and attach Foundry assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ github.ref_name }}" module.json dist/token-action-hud-hyp3e.zip --generate-notes --latest --title "Token Action HUD Hyperborea 3e ${{ github.ref_name }}" --verify-tag
+
+      - name: Verify public release assets
+        run: node tools/release.mjs verify-assets
+
+      - name: Register release with Foundry
+        if: ${{ env.FOUNDRY_PACKAGE_RELEASE_TOKEN != '' }}
+        run: node tools/release.mjs publish-foundry
+
+      - name: Report skipped Foundry registration
+        if: ${{ env.FOUNDRY_PACKAGE_RELEASE_TOKEN == '' }}
+        run: |
+          echo "Foundry registration skipped: FOUNDRY_PACKAGE_RELEASE_TOKEN is not configured."

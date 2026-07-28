@@ -1,0 +1,17 @@
+{
+  "name": "token-action-hud-hyp3e",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "check": "npm run test && node --check scripts/main.mjs && node --check scripts/constants.mjs && node --check scripts/defaults.mjs && node --check scripts/system-manager.mjs && node --check scripts/action-handler.mjs && node --check scripts/roll-handler.mjs && node --check tools/release.mjs",
+    "package": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File tools/Build-Release.ps1 -Force",
+    "release:check": "npm run check && npm run package",
+    "release:plan": "node tools/release.mjs plan",
+    "release:dry-run": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File tools/Start-Release.ps1 -DryRun",
+    "release:start": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File tools/Start-Release.ps1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
