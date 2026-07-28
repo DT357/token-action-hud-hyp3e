@@ -28,8 +28,8 @@ npm run release:check
 - [x] `module.json` is at the ZIP root
 - [x] Record the reported archive size and SHA-256 below
 
-Archive size: 17,567 bytes  
-SHA-256: `86C19A9F94C1FC49FFDACEE40746AD9A8C37BEF647716318FC00354A58330FD7`
+Archive size: 14,527 bytes
+SHA-256: `105CE100A52E050DB9A230965FBFD1BEBA896090738B6732B97171DDEE4EE4E3`
 
 ## Live test environments
 

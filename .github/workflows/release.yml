@@ -31,11 +31,17 @@ jobs:
       - name: Run release gate and build archive
         run: npm run release:check
 
-      - name: Create GitHub release and attach Foundry assets
+      - name: Publish GitHub release assets
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "${{ github.ref_name }}" module.json dist/token-action-hud-hyp3e.zip --generate-notes --latest --title "Token Action HUD Hyperborea 3e ${{ github.ref_name }}" --verify-tag
+          $tag = "${{ github.ref_name }}"
+          gh release view $tag *> $null
+          if ($LASTEXITCODE -eq 0) {
+            gh release upload $tag module.json dist/token-action-hud-hyp3e.zip --clobber
+          } else {
+            gh release create $tag module.json dist/token-action-hud-hyp3e.zip --generate-notes --latest --title "Token Action HUD Hyperborea 3e $tag" --verify-tag
+          }
 
       - name: Verify public release assets
         run: node tools/release.mjs verify-assets
