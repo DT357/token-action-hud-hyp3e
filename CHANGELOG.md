@@ -1,0 +1,38 @@
+# Change history
+
+## 2026.10.01
+
+### Fixed
+
+- Feature rolls now start with the visibility saved on the feature, including
+  private, blind, self and public rolls. Changing a feature's visibility takes
+  effect on the next HUD click.
+- The fix preserves the selected token's actor and leaves weapon rolls, spell
+  rolls and right-click sheet opening unchanged.
+
+### Development and documentation
+
+- Added generated manual-installation staging from the release allowlist, with
+  commands to refresh and validate it. Local checks and packaging refresh it.
+- Updated installation instructions to include Socketlib, clarified charged
+  items on characters and NPCs, and documented the hyp3e 4.3.1 lighting issue.
+- Reconciled the design, handoffs and release checklist with the shared workspace
+  and October 1 validation evidence.
+
+Compatibility declarations remain unchanged. Focused tests cover hyp3e 4.3.1
+with Foundry 13.351 and 14.368. The known upstream lighting issue remains;
+complete support-matrix acceptance is still a separate follow-up.
+
+## 2026.07.28 — Published
+
+- Added the Hyperborea companion for Token Action HUD Core 2.1, including weapon
+  actions, saving throws, character checks and tasks, rollable features, spells,
+  light sources and charged-item spells.
+- Added NPC morale and GM-only loyalty, light actions for item tokens, and
+  right-click item-sheet opening.
+- Excluded passive features, ordinary Gear and Statuses from the HUD.
+- Added deterministic release packaging, public-asset verification and optional
+  Foundry registration. Stabilized release hashing and line endings.
+
+Published release:
+[v2026.07.28](https://github.com/DT357/token-action-hud-hyp3e/releases/tag/v2026.07.28).

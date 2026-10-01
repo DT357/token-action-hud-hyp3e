@@ -142,7 +142,10 @@ export function createRollHandlerClass(coreApi) {
 
       await actor.rollItem({
         ...getBaseDataset(actor, this.token, ACTION_TYPES.ITEM),
-        itemId
+        itemId,
+        ...(item.type === 'feature' && hasValue(item.system?.rollMode) && {
+          rollMode: item.system.rollMode
+        })
       })
       return true
     }

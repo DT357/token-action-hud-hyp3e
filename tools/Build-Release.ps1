@@ -19,16 +19,7 @@ if ([IO.Path]::GetExtension($OutputPath) -ne '.zip') {
   throw 'The release output path must use the .zip extension.'
 }
 
-$runtimeFiles = @(
-  'LICENSE'
-  'README.md'
-  'module.json'
-  'lang\en.json'
-)
-$runtimeFiles += Get-ChildItem -LiteralPath (Join-Path $moduleRoot 'scripts') `
-  -File -Filter '*.mjs' |
-  Sort-Object Name |
-  ForEach-Object { "scripts\$($_.Name)" }
+$runtimeFiles = @(& (Join-Path $PSScriptRoot 'Get-ReleaseFiles.ps1'))
 
 $moduleRootPrefix = "$moduleRoot$([IO.Path]::DirectorySeparatorChar)"
 foreach ($relativePath in $runtimeFiles) {

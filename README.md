@@ -12,22 +12,23 @@ Hyperborea 3rd Edition game system.
 
 ## Requirements
 
-- Foundry Virtual Tabletop 13.351 or later within version 13, or Foundry 14
-  (verified with 14.365).
+- Foundry Virtual Tabletop 13.351 or later within version 13, or Foundry 14.
 - Hyperborea 3rd Edition 3.8.0 or later.
 - Token Action HUD Core 2.1.x.
+- Socketlib, which Token Action HUD Core requires.
 
 ## Installation
 
 1. Install **Hyperborea 3rd Edition** and **Token Action HUD Core** in Foundry.
+   Allow Foundry to install Core's required dependency, **Socketlib**, too.
 2. Open Foundry's **Add-on Modules** tab and select **Install Module**.
 3. Paste this address into the **Manifest URL** field:
 
    `https://github.com/DT357/token-action-hud-hyp3e/releases/latest/download/module.json`
 
 4. Select **Install**.
-5. Open a Hyperborea world and enable both **Token Action HUD Core** and
-   **Token Action HUD Hyperborea 3e**.
+5. Open a Hyperborea world and enable **Socketlib**, **Token Action HUD Core**,
+   and **Token Action HUD Hyperborea 3e**.
 
 ## Using the HUD
 
@@ -78,14 +79,15 @@ Spells are organized by spell level, and empty levels are hidden. Casting uses
 Hyperborea's normal spell rules, including memorization requirements when those
 rules are enabled.
 
-The Spells group appears only when the selected actor supports spellcasting.
+NPCs also need a casting ability for the Spells group to appear.
 
 ### Inventory
 
 The Inventory group contains:
 
 - Light sources.
-- Spells provided by identified charged items.
+- Spells provided by charged items. Characters must identify the item first;
+  NPCs do not have that restriction.
 
 Light sources use Hyperborea's normal fuel, lighting, and effect settings.
 Charged-item spells show their charge cost and remaining charges, and using one
@@ -104,15 +106,34 @@ combat access. Items marked **In Storage** are not shown.
 - **Item tokens:** Light sources only.
 - **Merchants and treasure actors:** No Hyperborea action groups are added.
 
-Linked and unlinked tokens are supported. Actions always use the actor belonging
-to the currently selected token.
+Linked and unlinked tokens are supported. Actions use the actor belonging to
+the currently selected token. See the lighting issue below when several tokens
+share one actor.
+
+## Known issues
+
+### Feature roll visibility in older versions
+
+Version **2026.10.01** fixes feature rolls ignoring their saved visibility.
+Feature rolls now start with the visibility saved on the feature. You can change
+it in the roll window before selecting **Roll**.
+
+If you still use **2026.07.28**, check the visibility choice before rolling,
+especially for private or blind rolls.
+
+### Lights on several tokens of the same actor
+
+With Hyperborea **4.3.1**, toggling a light can change the lighting on other
+tokens of the same actor, including unlinked tokens. This comes from the
+Hyperborea system's light handling. If you use several tokens of one actor,
+check their lighting after toggling a light.
 
 ## Troubleshooting
 
 ### The HUD does not appear
 
 - Confirm the world is using the Hyperborea 3rd Edition system.
-- Confirm both Token Action HUD Core and this module are enabled.
+- Confirm Socketlib, Token Action HUD Core, and this module are enabled.
 - Select a character, NPC, monster, or item token.
 - Check that the installed versions meet the requirements above.
 
@@ -122,8 +143,8 @@ to the currently selected token.
 - Confirm the actor supports that type of action.
 - Rollable features require an assigned roll.
 - Empty spell levels are hidden.
-- Unidentified items and items marked **In Storage** do not provide item-spell
-  actions.
+- Characters must identify a charged item before its spells appear.
+- Items marked **In Storage** do not provide item-spell actions.
 - Loyalty is visible only to the GM for NPC-type actors.
 
 ### An action uses the wrong actor

@@ -226,6 +226,62 @@ test('only generated item action types delegate to rollItem', async () => {
   ])
 })
 
+test('feature rolls preserve current visibility on characters and synthetic NPCs', async () => {
+  for (const actorType of ['character', 'npc']) {
+    const { actor, calls } = createActor(actorType)
+    const { actor: baseActor, calls: baseCalls } = createActor(actorType)
+    if (actorType === 'npc') actor.baseActor = baseActor
+    const { handler } = createHandler({ actor, tokenId: 'selected-feature-token' })
+    const feature = actor.items.get('feature-id')
+
+    for (const rollMode of [
+      'gmroll', 'blindroll', 'selfroll', 'publicroll',
+      'gm', 'blind', 'self', 'public'
+    ]) {
+      feature.system.rollMode = rollMode
+      assert.equal(await handler.dispatchAction('hyp3e|item|feature-id'), true)
+      assert.deepEqual(calls.item.at(-1), {
+        actorId: actor.id,
+        baseClass: actor.system.baseClass,
+        itemId: feature.id,
+        rollMode,
+        rollType: 'item',
+        tokenId: 'selected-feature-token'
+      })
+      assert.deepEqual(baseCalls.item, [])
+    }
+  }
+})
+
+test('features without a saved roll mode retain the system default', async () => {
+  const { actor, calls } = createActor()
+  const { handler } = createHandler({ actor })
+  for (const rollMode of [undefined, null, '']) {
+    actor.items.get('feature-id').system.rollMode = rollMode
+    assert.equal(await handler.dispatchAction('hyp3e|item|feature-id'), true)
+    assert.equal(Object.hasOwn(calls.item.at(-1), 'rollMode'), false)
+  }
+})
+
+test('weapon and spell actions do not override the system roll mode', async () => {
+  const { actor, calls } = createActor()
+  const { handler } = createHandler({ actor })
+  for (const itemId of ['weapon-id', 'spell-id']) {
+    actor.items.get(itemId).system.rollMode = 'gmroll'
+    assert.equal(await handler.dispatchAction(`hyp3e|item|${itemId}`), true)
+    assert.equal(Object.hasOwn(calls.item.at(-1), 'rollMode'), false)
+  }
+})
+
+test('a feature right-click opens its sheet without submitting a private roll', async () => {
+  const { actor, calls, itemSheetRenders } = createActor()
+  actor.items.get('feature-id').system.rollMode = 'gmroll'
+  const { handler } = createHandler({ actor, modifiers: { isRightClick: true } })
+  assert.equal(await handler.dispatchAction('hyp3e|item|feature-id'), true)
+  assert.deepEqual(itemSheetRenders, [{ force: true, id: 'feature-id' }])
+  assert.deepEqual(calls.item, [])
+})
+
 test('tasks and natural checks resolve their current formula and target at click time', async () => {
   const { actor, calls } = createActor()
   const { handler } = createHandler({ actor })
