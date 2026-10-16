@@ -88,8 +88,13 @@ Full compatibility sign-off is withheld. Remaining work includes targeted
 attacks, ammunition/range/equipment enforcement, fuel, exhaustive feature/effect
 variants, charged-item cancellation, layout persistence, themes, keyboard and
 viewport behavior, and the oldest declared dependency combinations. Branch/PR
-CI checks and installation through Foundry's manifest URL are separate open
-release checks. No gameplay feature is newly required by this documentation update.
+CI checks remain open. Publication succeeded in
+[workflow 38917157146](https://github.com/DT357/token-action-hud-hyp3e/actions/runs/38917157146),
+and Foundry registration returned `status: success`. The public manifest and ZIP
+match the tested candidate. Installation through Foundry's public manifest URL
+was also checked on both tested builds, including installed bytes, module
+activation with Core/Socketlib and reload. No gameplay feature is newly required
+by this documentation update.
 
 Workspace-only evidence is under `RuntimeTests/token-action-hud-hyp3e/`:
 `latest-2026-10-16/assessment.txt` records the original October 16 validation;
