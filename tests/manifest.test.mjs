@@ -12,7 +12,7 @@ test('module manifest declares the settled Phase 0 metadata', async () => {
 
   assert.equal(manifest.id, 'token-action-hud-hyp3e')
   assert.equal(manifest.title, 'Token Action HUD Hyperborea 3e')
-  assert.equal(manifest.version, '2026.10.01')
+  assert.equal(manifest.version, '2026.10.16')
   assert.match(manifest.version, /^\d{4}\.\d{2}\.\d{2}$/)
   assert.deepEqual(manifest.authors, [
     {
@@ -58,7 +58,7 @@ test('module manifest declares the settled Phase 0 metadata', async () => {
   )
   assert.equal(
     manifest.download,
-    'https://github.com/DT357/token-action-hud-hyp3e/releases/download/v2026.10.01/token-action-hud-hyp3e.zip'
+    'https://github.com/DT357/token-action-hud-hyp3e/releases/download/v2026.10.16/token-action-hud-hyp3e.zip'
   )
   assert.equal(manifest.license, 'LICENSE')
   assert.equal(manifest.readme, 'README.md')

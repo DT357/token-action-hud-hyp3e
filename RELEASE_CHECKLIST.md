@@ -3,22 +3,23 @@
 Use this checklist to record automated verification, runtime evidence and the
 maintainer's release decision. A normal full sign-off requires the live matrix.
 
-Release candidate: `2026.10.01`. The maintainer requested commit, push and release
-workflow execution on October 1 after the documentation audit disclosed the
-pending full matrix. This patch contains the visibility fix, staging tools and
-documentation changes and retains existing compatibility declarations. Focused
-patch acceptance does not mark the broader matrix complete.
+Release candidate: `2026.10.16`. The maintainer requested compatibility
+documentation updates and release workflow execution on October 16 after the
+focused hyp3e 4.5.0 assessment disclosed the upstream lighting issue and pending
+full matrix. This release changes documentation and version metadata only;
+runtime source and compatibility declarations are unchanged. See
+[COMPATIBILITY.md](COMPATIBILITY.md) for exact tested system identity and limits.
 
 ## Release identity
 
-- [x] Existing published version/tag: `2026.07.28` / `v2026.07.28`
+- [x] Previous published version/tag: `2026.10.01` / `v2026.10.01`
 - [x] Current manifest ID, author and repository metadata match the package
-- [x] CHANGELOG separates `2026.10.01` changes from published `2026.07.28`
+- [x] CHANGELOG separates `2026.10.16` changes from previous releases
 - [x] Maintainer authorized commit, push and release workflow execution
-- [x] New calendar version and matching download URL use `2026.10.01`
+- [x] New calendar version and matching download URL use `2026.10.16`
 - [x] README and release notes retain the upstream lighting limitation
 
-Do not refresh the published tag/assets to deliver the local fix. Preserve the
+Do not refresh an existing published tag/assets to deliver this update. Preserve the
 untracked handoff and all unrelated work when preparing a release commit.
 
 ## Automated gate
@@ -29,7 +30,7 @@ Run from the `token-action-hud-hyp3e` directory:
 npm run release:check
 ```
 
-- [x] All 50 Node tests pass in the October 1 local gate
+- [x] All 50 Node tests pass for the October 16 candidate
 - [x] All JavaScript syntax checks pass
 - [x] Manifest ID, version, compatibility, dependency, and runtime paths validate
 - [x] Two independent package builds are byte-identical
@@ -48,17 +49,33 @@ also refresh it. Staging and ZIP packaging share one runtime allowlist.
 | --- | ---: | --- | --- |
 | Published `2026.07.28` | 14,527 bytes | `105CE100A52E050DB9A230965FBFD1BEBA896090738B6732B97171DDEE4EE4E3` | Historical published baseline |
 | October 1 visibility-fix ZIP | 14,569 bytes | `92C8A157A3A7003DA8A13F2577BD359C66D483D709FA10692977C7F7B60E167C` | Exact artifact used for focused runtime acceptance before README changes |
-| `2026.10.01` patch candidate | 14,951 bytes | `DC41F3FD298057FB2362C4A76F6B7AD2A1C4EEB8DB0A89739E41420E1C04BB03` | Versioned candidate for release workflow and fresh focused runtime checks |
+| Published `2026.10.01` | 14,951 bytes | `DC41F3FD298057FB2362C4A76F6B7AD2A1C4EEB8DB0A89739E41420E1C04BB03` | Published patch used for the initial October 16 validation |
+| `2026.10.16` documentation candidate | 15,084 bytes | `191E552CE0315EC52C232E2F87B19A27990375AB9C01C7142E7DE50E18488118` | Versioned archive; runtime scripts and English localization match published October 1 bytes |
 
 The documentation-only rebuild was 14,942 bytes with SHA-256
 `458EA05FCD0320709D088A7BE4D7B9D87D673766EDA9A58C32D248BB5674C1D3`.
 Workspace-only evidence is under `RuntimeTests/token-action-hud-hyp3e/`; it is
 deliberately excluded from this public repository and its release archives.
-Historical runtime evidence applies to its recorded artifact. Fresh patch
-evidence is stored in `release-2026.10.01/` under that workspace directory.
+Historical runtime evidence applies to its recorded artifact. October 1 patch
+evidence is stored in `release-2026.10.01/`; the new documentation candidate uses
+`release-2026.10.16/` under that workspace directory.
 
 ## Completed focused runtime evidence
 
+- Workspace record `latest-2026-10-16/assessment.txt`: hyp3e 4.5.0 at
+  `5501f26d3db795eb27c114af9df644aa8628ea30`, Foundry 13.351/14.369, Core 2.1.1,
+  Socketlib 1.1.3. The unchanged published October 1 ZIP passed 48 privacy rolls
+  and completed 24 regression check groups. Both regression results retain the
+  failing upstream lighting assertion and report `ok: false`. Final completed
+  runs had no uncaught page errors; full compatibility sign-off remains withheld.
+- Fresh `2026.10.16` candidate: 50 local tests and 48 privacy rolls passed;
+  24 regression check groups completed, retaining the same lighting failure on
+  each generation. Both raw regression results remain `ok: false`. Final runs
+  had no page or console errors and all owned ports closed. Exact evidence:
+  `release-2026.10.16/v13/2026-10-16T14-30-50-894Z` (regression),
+  `v13/2026-10-16T14-32-07-795Z` (visibility),
+  `v14/2026-10-16T14-31-54-788Z` (regression), and
+  `v14/2026-10-16T14-33-39-336Z` (visibility) beneath that release directory.
 - Workspace record `4.3.1-2026-10-01/assessment.txt`:
   Foundry 13.351/14.368, hyp3e 4.3.1, Core 2.1.1, Socketlib v1.1.3. Startup,
   groups, saves/checks, spell and charge consumption, selected synthetic actors,
@@ -89,12 +106,12 @@ versions, artifact hashes, diagnostics and results for every supported row.
 | Combination | Foundry | hyp3e / Core / Socketlib | Full-matrix result |
 | --- | --- | --- | --- |
 | Declared minimum supported dependencies | 13.351 | 3.8.0 / 2.1.0 / record compatible version | Pending |
-| Current supported v13 build | Record exact build; focused evidence used 13.351 | 4.3.1 / 2.1.1 / v1.1.3 | Pending |
+| Current tested v13 build | 13.351 | 4.5.0 at `5501f26` / 2.1.1 / 1.1.3 | Pending |
 | Existing verified declaration, if retained | 14.365 | Record supported dependency versions | Pending |
-| Current supported v14 build | Record exact build; focused evidence used 14.368 | 4.3.1 / 2.1.1 / v1.1.3 | Pending |
+| Current tested v14 build | 14.369 | 4.5.0 at `5501f26` / 2.1.1 / 1.1.3 | Pending |
 
 The earlier 14.365/hyp3e 3.8.3/Core 2.1.1 entry recorded a detected installation,
-not a completed test. Neither it nor the focused 14.368 runs establishes a
+not a completed test. Neither it nor the focused 14.368/14.369 runs establishes a
 signed full-matrix result. Do not change declared compatibility from expectation.
 
 ## Clean install and startup
@@ -175,7 +192,7 @@ Test linked and unlinked NPC tokens. Include both NPC and Monster NPC subtypes:
 - [ ] Explain each retained core/system warning or blocked external resource
 - [ ] Stop owned servers and verify test ports close
 
-Known upstream limitations: hyp3e 4.3.1 fans light updates out to linked and
+Known upstream limitations: tested hyp3e 4.3.1 and 4.5.0 fan light updates out to linked and
 unlinked tokens sharing an Actor ID; native system roll dialogs emit V1
 deprecations. Focused tests also captured software-rendering warnings and blocked
 external resource errors. Keep these explicit; do not claim zero diagnostics.
@@ -188,10 +205,11 @@ full sign-off. No companion workaround has been implemented.
 - [x] Verify whether `FOUNDRY_PACKAGE_RELEASE_TOKEN` is configured, without
       reading or recording its value
 
-The release secret is configured, verified through its name only. The existing
-workflow triggers only on version tags. The
-[Foundry package listing](https://foundryvtt.com/packages/token-action-hud-hyp3e)
-is public and shows `2026.07.28`; checking whether it is listed is complete.
+The release secret was confirmed configured again on October 16 through its name only.
+The workflow
+triggers only on version tags. The October 1 workflow and Foundry registration
+succeeded. The [Foundry package listing](https://foundryvtt.com/packages/token-action-hud-hyp3e)
+is public; publication verification below applies to the new candidate.
 
 ## Published-release verification
 
@@ -223,6 +241,6 @@ candidate so the workspace's intentionally untracked handoff stays untouched:
 - Candidate hash: ____________________
 - Accepted upstream limitations: ____________________
 
-Release decision: **Maintainer-authorized patch release `2026.10.01`; full
+Release decision: **Maintainer-authorized documentation release `2026.10.16`; full
 support-matrix acceptance remains pending.** The documented upstream lighting
 limit is retained; no broader compatibility claim is made.

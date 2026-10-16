@@ -1,5 +1,18 @@
 # Change history
 
+## 2026.10.16
+
+- Updated compatibility guidance for Hyperborea 4.5.0 with Foundry 13.351 and
+  14.369, Token Action HUD Core 2.1.1 and Socketlib 1.1.3.
+- Added a [compatibility record](COMPATIBILITY.md) separating tested system
+  snapshots, completed checks and remaining acceptance work.
+- Confirmed that the system's lighting issue remains in the tested 4.5.0
+  snapshot: toggling a light can affect other tokens of the same actor.
+
+This release updates documentation and release metadata. Gameplay code and
+compatibility declarations are unchanged. The focused checks do not establish
+complete compatibility across every supported version and option.
+
 ## 2026.10.01
 
 ### Fixed
