@@ -19,7 +19,7 @@ Hyperborea 3rd Edition game system.
 
 ### Recent compatibility checks
 
-On October 16, the HUD was checked with Hyperborea **4.5.0**, Token Action HUD
+On October 17, the HUD was checked with Hyperborea **4.6.0**, Token Action HUD
 Core **2.1.1** and Socketlib **1.1.3** on Foundry **13.351** and **14.369**.
 These checks covered common actions and feature-roll visibility. Some actions
 and display options still need broader testing. The lighting issue below
@@ -131,8 +131,8 @@ especially for private or blind rolls.
 
 ### Lights on several tokens of the same actor
 
-With Hyperborea **4.3.1 and 4.5.0**, toggling a light can change the lighting on other
-tokens of the same actor, including unlinked tokens. This comes from the
+With Hyperborea **4.3.1, 4.5.0 and 4.6.0**, toggling a light can change the
+lighting on other tokens of the same actor, including unlinked tokens. This comes from the
 Hyperborea system's light handling. If you use several tokens of one actor,
 check their lighting after toggling a light.
 

@@ -1,6 +1,6 @@
 # Compatibility record
 
-Reviewed October 16, 2026 for module **2026.10.16**. Installation and gameplay
+Reviewed October 17, 2026 for module **2026.10.17**. Installation and gameplay
 instructions belong in [README.md](README.md); this document records engineering
 evidence and its limits. Publication steps are in [RELEASE_CHECKLIST.md](RELEASE_CHECKLIST.md).
 
@@ -19,34 +19,40 @@ No broader compatibility declaration is introduced by this documentation release
 
 ## Tested system identity
 
-The October 16 validation used official hyp3e **4.5.0** at
-[`5501f26d3db795eb27c114af9df644aa8628ea30`](https://github.com/thurianknight/hyp3e/commit/5501f26d3db795eb27c114af9df644aa8628ea30).
-It was obtained by immutable commit into isolated test storage. The shared
-read-only reference remains at `3439d5f971e36e8537bbf604b35aee27811dcd2d`;
-neither the reference nor the active local system was changed for this release.
+The October 17 validation used the maintainer-provided official hyp3e **4.6.0**
+reference at tag `v4.6.0`, commit
+[`58dad834ea295436e5d8cc39a180246eb488860f`](https://github.com/thurianknight/hyp3e/commit/58dad834ea295436e5d8cc39a180246eb488860f).
+Tests use an immutable local archive of that clean checkout. Neither the
+read-only reference nor the separate active local system was changed by this work.
 
-During release preparation, official `dev` had advanced to
-[`9316c0e505d95626d319123cdc07807455e2f094`](https://github.com/thurianknight/hyp3e/commit/9316c0e505d95626d319123cdc07807455e2f094).
-That later commit changes token helpers and adds assets. It has not received
-the runtime checks recorded here. A shared version number does not make two
-system commits interchangeable as compatibility evidence.
+Historical October 16 evidence used hyp3e **4.5.0** at
+[`5501f26d3db795eb27c114af9df644aa8628ea30`](https://github.com/thurianknight/hyp3e/commit/5501f26d3db795eb27c114af9df644aa8628ea30).
+A shared version number does not make different system commits interchangeable
+as compatibility evidence.
 
 ## Completed focused coverage
 
-The initial October 16 checks used the published 2026.10.01 ZIP (14,951 bytes;
-SHA-256 `DC41F3FD298057FB2362C4A76F6B7AD2A1C4EEB8DB0A89739E41420E1C04BB03`).
-The exact 2026.10.16 candidate repeated the local and focused runtime gates:
-all 50 local tests and 48 visibility rolls passed, and 24 regression check groups
-completed with the same two lighting failures. Its ZIP is 15,084 bytes, SHA-256
-`191E552CE0315EC52C232E2F87B19A27990375AB9C01C7142E7DE50E18488118`.
-Runtime scripts and English localization match the October 1 release exactly.
-The new candidate's final runs had no page or console errors, and all owned
-test-server ports closed. This remains focused coverage, not full sign-off.
+The initial October 17 checks used the published 2026.10.16 ZIP (15,084 bytes;
+SHA-256
+`191E552CE0315EC52C232E2F87B19A27990375AB9C01C7142E7DE50E18488118`).
+All 50 local tests and 48 visibility rolls passed, and 24 broader regression
+check groups completed. The only failing assertion on each generation was the
+known upstream lighting behavior below; no companion failure was found. Final
+runs had no page or console errors, and all owned ports closed.
+
+The maintainer clarified that this system-owned finding should not block the
+TAH release. The exact 2026.10.17 candidate repeated the focused checks:
+50 local tests and 48 visibility rolls passed, and 24 broader groups completed
+with only the same two upstream lighting findings. Its ZIP is 15,093 bytes,
+SHA-256 `C52DE3AE9E09718B662D08B461A2D930AE56C1943F2E2962FA22F60A3F78552A`.
+Final runs had no page/console errors and closed all owned ports. Gameplay scripts
+and English localization are unchanged. This is focused companion acceptance,
+not full compatibility sign-off or a claim that the lighting assertion passes.
 
 | Foundry | Node | hyp3e | Core / Socketlib | Completed focused coverage |
 | --- | --- | --- | --- | --- |
-| 13.351 | 22.23.2 | 4.5.0 at `5501f26` | 2.1.1 / 1.1.3 | 12 regression check groups; 24 feature-visibility rolls; lighting assertion fails |
-| 14.369 | 24.15.0 | 4.5.0 at `5501f26` | 2.1.1 / 1.1.3 | 12 regression check groups; 24 feature-visibility rolls; lighting assertion fails |
+| 13.351 | 22.23.2 | 4.6.0 at `58dad834` | 2.1.1 / 1.1.3 | 12 regression check groups; 24 feature-visibility rolls; upstream lighting assertion fails |
+| 14.369 | 24.15.0 | 4.6.0 at `58dad834` | 2.1.1 / 1.1.3 | 12 regression check groups; 24 feature-visibility rolls; upstream lighting assertion fails |
 
 Playwright 1.63.0 drove disposable worlds. Coverage includes registration and
 startup, actor-specific groups, saves and representative checks, native weapon
@@ -73,13 +79,16 @@ remain recorded. Failed early harness/bootstrap attempts remain in the evidence.
 On both Foundry generations, selecting one linked token and toggling its HUD
 light can also light other linked and unlinked tokens sharing its Actor ID.
 The selected-token assertion fails, and each regression result remains
-`ok: false`; it is not waived or reported as an overall passing suite.
+`ok: false`; it is not rewritten or reported as an overall passing suite.
+Release acceptance distinguishes this reproduced system finding from companion
+checks. Any additional failing assertion or unexpected page/console error still
+blocks focused TAH acceptance.
 
 The companion delegates to the selected Actor's public `toggleLightSource`
 method. The tested system's `createActiveEffect` handling in
-[`module/helpers/effects.mjs`](https://github.com/thurianknight/hyp3e/blob/5501f26d3db795eb27c114af9df644aa8628ea30/module/helpers/effects.mjs#L443)
+[`module/helpers/effects.mjs`](https://github.com/thurianknight/hyp3e/blob/58dad834ea295436e5d8cc39a180246eb488860f/module/helpers/effects.mjs#L443)
 matches Canvas tokens by `token.actor.id`. The finding was also reproduced with
-hyp3e 4.3.1. Resolve the intended Actor/token lighting semantics upstream;
+hyp3e 4.3.1 and 4.5.0. Resolve the intended Actor/token lighting semantics upstream;
 this documentation release adds no companion workaround.
 
 ## Remaining acceptance
@@ -88,7 +97,7 @@ Full compatibility sign-off is withheld. Remaining work includes targeted
 attacks, ammunition/range/equipment enforcement, fuel, exhaustive feature/effect
 variants, charged-item cancellation, layout persistence, themes, keyboard and
 viewport behavior, and the oldest declared dependency combinations. Branch/PR
-CI checks remain open. Publication succeeded in
+CI checks remain open. The previous 2026.10.16 publication succeeded in
 [workflow 38917157146](https://github.com/DT357/token-action-hud-hyp3e/actions/runs/38917157146),
 and Foundry registration returned `status: success`. The public manifest and ZIP
 match the tested candidate. Installation through Foundry's public manifest URL
@@ -97,8 +106,10 @@ activation with Core/Socketlib and reload. No gameplay feature is newly required
 by this documentation update.
 
 Workspace-only evidence is under `RuntimeTests/token-action-hud-hyp3e/`:
-`latest-2026-10-16/assessment.txt` records the original October 16 validation;
-`release-2026.10.16/` records the new candidate. These paths describe local
+`4.6.0-2026-10-17/assessment.txt` records the initial 4.6.0 validation;
+`release-2026.10.17/` records the new candidate and release decision.
+`latest-2026-10-16/` and `release-2026.10.16/` retain historical 4.5.0 evidence.
+These paths describe local
 evidence locations, not public download links. Runtime data, licensed
 configuration and system source snapshots are excluded from this repository
 and the module archive.

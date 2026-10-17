@@ -19,22 +19,22 @@ const manifest = JSON.parse(
 test('release plan derives the immutable tag and both GitHub assets', () => {
   const plan = createReleasePlan(manifest)
 
-  assert.equal(plan.tag, 'v2026.10.16')
+  assert.equal(plan.tag, 'v2026.10.17')
   assert.equal(plan.archivePath, 'dist/token-action-hud-hyp3e.zip')
   assert.equal(
     plan.releaseManifestUrl,
     'https://github.com/DT357/token-action-hud-hyp3e/releases/download/'
-      + 'v2026.10.16/module.json'
+      + 'v2026.10.17/module.json'
   )
   assert.equal(plan.archiveUrl, manifest.download)
   assert.equal(
     plan.notesUrl,
-    'https://github.com/DT357/token-action-hud-hyp3e/releases/tag/v2026.10.16'
+    'https://github.com/DT357/token-action-hud-hyp3e/releases/tag/v2026.10.17'
   )
 })
 
 test('release tag validation rejects a tag that differs from module.json', () => {
-  assert.doesNotThrow(() => validateReleaseTag(manifest, 'v2026.10.16'))
+  assert.doesNotThrow(() => validateReleaseTag(manifest, 'v2026.10.17'))
   assert.throws(
     () => validateReleaseTag(manifest, 'v2026.07.29'),
     /does not match module version/
@@ -46,13 +46,13 @@ test('Foundry release payload uses an immutable release manifest URL', () => {
     id: 'token-action-hud-hyp3e',
     'dry-run': true,
     release: {
-      version: '2026.10.16',
+      version: '2026.10.17',
       manifest:
         'https://github.com/DT357/token-action-hud-hyp3e/releases/download/'
-        + 'v2026.10.16/module.json',
+        + 'v2026.10.17/module.json',
       notes:
         'https://github.com/DT357/token-action-hud-hyp3e/releases/tag/'
-        + 'v2026.10.16',
+        + 'v2026.10.17',
       compatibility: {
         minimum: '13',
         verified: '14.365'
