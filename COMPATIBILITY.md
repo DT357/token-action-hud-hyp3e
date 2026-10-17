@@ -97,13 +97,14 @@ Full compatibility sign-off is withheld. Remaining work includes targeted
 attacks, ammunition/range/equipment enforcement, fuel, exhaustive feature/effect
 variants, charged-item cancellation, layout persistence, themes, keyboard and
 viewport behavior, and the oldest declared dependency combinations. Branch/PR
-CI checks remain open. The previous 2026.10.16 publication succeeded in
-[workflow 38917157146](https://github.com/DT357/token-action-hud-hyp3e/actions/runs/38917157146),
+CI checks remain open. Publication of 2026.10.17 succeeded in
+[workflow 39037905741](https://github.com/DT357/token-action-hud-hyp3e/actions/runs/39037905741),
 and Foundry registration returned `status: success`. The public manifest and ZIP
-match the tested candidate. Installation through Foundry's public manifest URL
-was also checked on both tested builds, including installed bytes, module
-activation with Core/Socketlib and reload. No gameplay feature is newly required
-by this documentation update.
+match the tested 2026.10.17 candidate. No gameplay feature is newly required by
+this documentation update. Public-manifest installation passed on Foundry
+13.351 and 14.369: installed bytes match, Core/Socketlib/TAH are active after
+reload, and the HUD opens a native save dialog. Exact runs are in the release
+checklist; all owned ports closed and no page errors occurred.
 
 Workspace-only evidence is under `RuntimeTests/token-action-hud-hyp3e/`:
 `4.6.0-2026-10-17/assessment.txt` records the initial 4.6.0 validation;

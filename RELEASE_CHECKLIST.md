@@ -3,7 +3,7 @@
 Use this checklist to record automated verification, runtime evidence and the
 maintainer's release decision. A normal full sign-off requires the live matrix.
 
-Release candidate: `2026.10.17`. The maintainer requested validation against
+Published documentation release: `2026.10.17`. The maintainer requested validation against
 hyp3e 4.6.0 and a release if TAH passed, then clarified that the sole failing
 lighting assertion belongs to the upstream system rather than TAH. It is an
 accepted, documented limitation for this release; raw results remain unchanged.
@@ -236,19 +236,35 @@ After the maintainer's release decision, prepare the candidate on `main` and
 follow the guarded release procedure. Use a clean checkout of the committed
 candidate so the workspace's intentionally untracked handoff stays untouched:
 
-- [ ] Run `npm run release:dry-run`
-- [ ] Confirm the reported version tag and release URLs
-- [ ] Run `npm run release:start` to create and push the annotated tag
-- [ ] Confirm the GitHub Release workflow succeeds
-- [ ] Confirm the workflow attached `module.json` and
+- [x] Run `npm run release:dry-run`
+- [x] Confirm the reported version tag and release URLs
+- [x] Run `npm run release:start` to create and push the annotated tag
+- [x] Confirm the GitHub Release workflow succeeds
+- [x] Confirm the workflow attached `module.json` and
       `token-action-hud-hyp3e.zip`
-- [ ] Confirm the workflow verified both public assets against the local files
-- [ ] Confirm Foundry registration succeeded, or document that the optional
+- [x] Confirm the workflow verified both public assets against the local files
+- [x] Confirm Foundry registration succeeded, or document that the optional
       `FOUNDRY_PACKAGE_RELEASE_TOKEN` secret is not yet configured
-- [ ] Replace generated notes with reviewed, end-user release notes
-- [ ] Install through Foundry's public manifest-URL workflow on 13.351 and 14.369
-- [ ] Confirm version 2026.10.17 with Core and Socketlib enabled after reload
-- [ ] Compare the downloaded ZIP SHA-256 with the locally validated artifact
+- [x] Replace generated notes with reviewed, end-user release notes
+- [x] Install through Foundry's public manifest-URL workflow on 13.351 and 14.369
+- [x] Confirm version 2026.10.17 with Core and Socketlib enabled after reload
+- [x] Compare the downloaded ZIP SHA-256 with the locally validated artifact
+
+Current publication completed on October 17 from release commit
+`b64a230b7494371203299a7ef2e448b5218eb793`, immutable tag `v2026.10.17`.
+[Workflow 39037905741](https://github.com/DT357/token-action-hud-hyp3e/actions/runs/39037905741)
+succeeded, including public asset verification and Foundry registration. The
+actual registration response was `status: success`. The
+[release](https://github.com/DT357/token-action-hud-hyp3e/releases/tag/v2026.10.17)
+is public, neither draft nor prerelease, with reviewed notes. Both downloaded
+assets match the tested candidate exactly. The raw lighting failures and
+unchanged compatibility declarations remain explicit.
+
+Public-manifest installation runs under `release-2026.10.17/`:
+`manifest-v13/2026-10-17T13-47-11-998Z` and
+`manifest-v14/2026-10-17T13-48-18-642Z`. Both installed matching bytes, launched
+and reloaded with Core/Socketlib/TAH active, opened a native HUD save dialog,
+had no page errors and closed their owned ports.
 
 Previous publication completed on October 16 from release commit
 `1752ef2d0b0a4157da7571e9ccb971e0437e2d01`, immutable tag `v2026.10.16`.
