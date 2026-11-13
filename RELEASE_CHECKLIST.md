@@ -3,6 +3,21 @@
 Use this checklist to record automated verification, runtime evidence and the
 maintainer's release decision. A normal full sign-off requires the live matrix.
 
+## Current release: 2026.11.13
+
+The maintainer requested publication with hyp3e **4.9.2** as the most recent
+verified system version. The exact candidate passes the 50-test release gate,
+48 privacy rolls and focused broader acceptance on Foundry 13.351/14.369.
+The upstream lighting failure remains explicitly recorded, and the broader
+minimum-dependency/layout matrix remains incomplete. The system manifest now
+records verified 4.9.2; minimum requirements and the Foundry declaration remain
+unchanged. See [the current release record](RELEASE-2026.11.13.md) for hashes,
+evidence and publication results.
+
+The dated checklist below preserves the October 17 release history.
+
+## Historical release: 2026.10.17
+
 Published documentation release: `2026.10.17`. The maintainer requested validation against
 hyp3e 4.6.0 and a release if TAH passed, then clarified that the sole failing
 lighting assertion belongs to the upstream system rather than TAH. It is an

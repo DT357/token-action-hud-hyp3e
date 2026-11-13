@@ -1,5 +1,17 @@
 # Change history
 
+## 2026.11.13
+
+- Record hyp3e **4.9.2** as the most recent verified system version in the
+  manifest and README; retain the existing minimum requirements.
+- Recheck common HUD actions, native system delegation, synthetic-Actor data
+  isolation and GM/player feature-roll visibility on Foundry 13.351 and 14.369,
+  with Core 2.1.1 and Socketlib 1.1.3.
+- Keep the known upstream lighting fan-out limitation documented. Focused
+  verification does not complete the broader minimum-dependency and layout matrix
+  or renew the historical Foundry 14.365 declaration.
+- Runtime scripts and translations are unchanged from 2026.10.17.
+
 ## 2026.10.17
 
 - Updated compatibility guidance for Hyperborea 4.6.0 with Foundry 13.351 and

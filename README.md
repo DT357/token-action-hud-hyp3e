@@ -19,7 +19,8 @@ Hyperborea 3rd Edition game system.
 
 ### Recent compatibility checks
 
-On October 17, the HUD was checked with Hyperborea **4.6.0**, Token Action HUD
+Hyperborea **4.9.2** is the most recent verified system version, checked on
+November 13 with Token Action HUD
 Core **2.1.1** and Socketlib **1.1.3** on Foundry **13.351** and **14.369**.
 These checks covered common actions and feature-roll visibility. Some actions
 and display options still need broader testing. The lighting issue below

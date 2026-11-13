@@ -1,6 +1,6 @@
 # Compatibility record
 
-Reviewed October 17, 2026 for module **2026.10.17**. Installation and gameplay
+Reviewed November 13, 2026 for module **2026.11.13**. Installation and gameplay
 instructions belong in [README.md](README.md); this document records engineering
 evidence and its limits. Publication steps are in [RELEASE_CHECKLIST.md](RELEASE_CHECKLIST.md).
 
@@ -9,15 +9,30 @@ evidence and its limits. Publication steps are in [RELEASE_CHECKLIST.md](RELEASE
 | Component | Declaration | Interpretation |
 | --- | --- | --- |
 | Foundry | Minimum 13; verified 14.365; no explicit maximum | Core imposes an effective minimum of 13.351. The tested system supports generations 13 and 14. |
-| hyp3e | Minimum 3.8.0 | Historical support floor, not the current reference or a claim of fresh minimum-version acceptance. |
+| hyp3e | Minimum 3.8.0; verified 4.9.2 | Historical support floor, not the current reference or a claim of fresh minimum-version acceptance. |
 | Token Action HUD Core | Manifest minimum 2.1.0; runtime API requirement 2.1 | The integration accepts Core 2.1.x. |
 | Socketlib | Required by Core | Focused checks used 1.1.3. |
 
-These declarations are retained from 2026.10.01. In particular, the historical
+Minimum requirements are retained from 2026.10.01. The latest verified hyp3e
+version is now explicitly recorded as 4.9.2. In particular, the historical
 `verified: "14.365"` value has not been renewed by the focused runs below.
-No broader compatibility declaration is introduced by this documentation release.
+This focused system verification does not certify the unfinished full matrix.
 
-## Tested system identity
+## Current 4.9.2 verification
+
+The November 13 checks use the official hyp3e 4.9.2 release archive, commit
+`ad53440d19f2677211e64bc0fdd89dfeddfc47e9`, on Foundry 13.351 and 14.369 with
+Core 2.1.1 and Socketlib 1.1.3. The exact 2026.11.13 archive is tested separately
+from the preceding 2026.10.17 artifact. Runtime scripts and translations match
+that preceding release. See [the release record](RELEASE-2026.11.13.md).
+
+The same focused privacy and broader-regression gates apply. Raw broader results
+retain `ok: false` for upstream light fan-out to linked/unlinked tokens sharing
+an Actor; this maintainer-accepted system limitation remains visible. Any new
+unclassified failure blocks acceptance. The full minimum-dependency, targeted
+attack/ammunition/range, light-fuel and layout/theme matrix remains incomplete.
+
+## Historical tested system identity
 
 The October 17 validation used the maintainer-provided official hyp3e **4.6.0**
 reference at tag `v4.6.0`, commit
