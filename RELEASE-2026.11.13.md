@@ -49,4 +49,25 @@ Temporary license copies were removed after each completed run.
 The tag workflow builds and publishes the deterministic archive, verifies the
 public assets and registers the version with Foundry when the repository release
 credential is configured. Public downloads and native manifest installation
-results are recorded after publication. The local handoff remains untracked.
+results are recorded below. The local handoff remains untracked.
+
+Published [v2026.11.13](https://github.com/DT357/token-action-hud-hyp3e/releases/tag/v2026.11.13)
+from commit `3f9d31e31fbf9ed3e2f00002ad3c1fac60261864`. Workflow
+[43455485276](https://github.com/DT357/token-action-hud-hyp3e/actions/runs/43455485276)
+succeeded, including public-asset verification and Foundry registration. Foundry
+returned `status: success`; its live catalogue lists 2026.11.13 with the tagged
+manifest. The GitHub release is latest, public and not a prerelease, and the
+reviewed release notes explicitly identify hyp3e 4.9.2 as most recently verified.
+
+The published ZIP is byte-identical to the candidate above. Published manifest
+SHA-256 is `caf47ecf33e57fd5a06913a226b57891379e001fad7c7bd797c5a598c731560e`.
+GitHub asset digests, all ten payload files and the latest manifest URL verify.
+
+Native manifest installations on both Foundry 13.351 and 14.369 match all ten
+files. World launch, enable/reload, token selection, HUD rendering and opening
+the native Death save dialog pass without browser exceptions. Evidence is in
+`manifest-v13/2026-11-13T15-45-44-085Z/` and
+`manifest-v14/2026-11-13T15-46-13-640Z/` under the local evidence directory.
+Temporary licenses were removed and ports 30851/30861 released. No live Foundry
+installation was changed. Post-publication documentation commits leave the
+release tag and assets unchanged.
